@@ -37,4 +37,14 @@ db.prepare(`CREATE TABLE IF NOT EXISTS reports (
   feedback TEXT
 )`).run();
 
+const bcrypt = require("bcryptjs");
+const admin = db.prepare("SELECT * FROM users WHERE email=?").get("admin@example.com");
+if (!admin) {
+  const hashed = bcrypt.hashSync("password", 8);
+  db.prepare("INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)")
+    .run("Admin User", "admin@example.com", hashed, "lecturer");
+  console.log("Default admin user created: admin@example.com / password");
+}
+
+
 module.exports = db;

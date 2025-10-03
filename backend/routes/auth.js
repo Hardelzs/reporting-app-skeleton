@@ -16,21 +16,20 @@ router.post('/register', (req, res) => {
   const hashed = bcrypt.hashSync(password, 8);
 
   try {
-    // Insert user into DB
     const info = db.prepare(
       'INSERT INTO users (name,email,password,role) VALUES (?,?,?,?)'
     ).run(name || '', email, hashed, role);
 
-    // Build user object
     const user = { id: info.lastInsertRowid, name, email, role };
-
-    // Create JWT token
     const token = jwt.sign(user, JWT_SECRET);
-
     res.json({ user, token });
   } catch (err) {
+    if (err.message.includes("UNIQUE constraint failed")) {
+      return res.status(400).json({ error: "Email already registered" });
+    }
     res.status(400).json({ error: err.message });
   }
+
 });
 
 // Login

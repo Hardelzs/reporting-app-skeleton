@@ -10,5 +10,12 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/reports', reportsRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log('Server running on port', PORT));
+const PORT = process.env.PORT || 5002;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} already in use. Try: PORT=5002 npm run dev`);
+    process.exit(1);
+  }
+});

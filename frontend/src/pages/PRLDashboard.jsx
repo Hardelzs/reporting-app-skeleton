@@ -8,13 +8,13 @@ export default function PRLDashboard({ user }) {
   useEffect(()=>{ fetchReports(); },[]);
 
   const fetchReports = async () => {
-    const res = await fetch('http://localhost:5000/api/reports');
+    const res = await fetch('http://localhost:5001/api/reports');
     const data = await res.json();
     setReports(data);
   };
 
   const sendFeedback = async (id) => {
-    await fetch(`http://localhost:5000/api/reports/${id}/feedback`, {
+    await fetch(`http://localhost:5001/api/reports/${id}/feedback`, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ feedback: feedbacks[id] || '' })

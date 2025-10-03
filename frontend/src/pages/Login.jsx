@@ -9,7 +9,7 @@ export default function Login({ onLogin }) {
 
   const submit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/auth/login', {
+    const res = await fetch('http://localhost:5001/api/auth/login', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ email, password })
@@ -38,6 +38,7 @@ export default function Login({ onLogin }) {
             <input type="password" className="form-control" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} />
           </div>
           <button className="btn btn-primary">Login</button>
+          <p>Don’t have an account? <a href="/register">Register</a></p>
         </form>
       </div>
     </div>

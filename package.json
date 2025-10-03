@@ -2,7 +2,7 @@
   "name": "reporting-app",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run dev --prefix backend\" \"npm run start --prefix frontend\""
+    "start": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
   },
   "devDependencies": {
     "concurrently": "^8.2.0"

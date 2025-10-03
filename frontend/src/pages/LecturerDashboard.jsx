@@ -8,19 +8,19 @@ export default function LecturerDashboard({ user }) {
   useEffect(()=>{ fetchReports(); },[]);
 
   const fetchReports = async () => {
-    const res = await fetch('http://localhost:5000/api/reports');
+    const res = await fetch('http://localhost:5001/api/reports');
     const data = await res.json();
     setReports(data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch('http://localhost:5000/api/reports', {
+    await fetch('http://localhost:5001/api/reports', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify(report)
     });
-    setReport({ class_name:'', week:'', date:'', topic:'', outcomes:'', recommendations:'', students_present:0, total_students:0, venue:'', time:'', course_id: null });
+    setReport({ class_name:'', week:'', date:'', topic:'', outcomes:'', recommendations:'', students_present:0, total_students:0, venue:'', time:'', course_id: '' });
     fetchReports();
   };
 
@@ -36,13 +36,16 @@ export default function LecturerDashboard({ user }) {
             <div className="col"><input className="form-control" placeholder="Week" value={report.week} onChange={e=>setReport({...report, week:e.target.value})} /></div>
             <div className="col"><input type="date" className="form-control" value={report.date} onChange={e=>setReport({...report, date:e.target.value})} /></div>
           </div>
+          <div className="mt-2"><input className="form-control" placeholder="Course" value={report.course_id} onChange={e=>setReport({...report, topic:e.target.value})} /></div>
           <div className="mt-2"><input className="form-control" placeholder="Topic" value={report.topic} onChange={e=>setReport({...report, topic:e.target.value})} /></div>
           <div className="mt-2"><textarea className="form-control" placeholder="Learning Outcomes" value={report.outcomes} onChange={e=>setReport({...report, outcomes:e.target.value})}></textarea></div>
           <div className="mt-2"><textarea className="form-control" placeholder="Recommendations" value={report.recommendations} onChange={e=>setReport({...report, recommendations:e.target.value})}></textarea></div>
           <div className="mt-2"><input className="form-control" placeholder="Venue" value={report.venue} onChange={e=>setReport({...report, venue:e.target.value})} /></div>
           <div className="mt-2"><input className="form-control" placeholder="Time" value={report.time} onChange={e=>setReport({...report, time:e.target.value})} /></div>
           <div className="mt-2 row">
+            <label htmlFor="">Students Presents</label>
             <div className="col"><input type="number" className="form-control" placeholder="Students Present" value={report.students_present} onChange={e=>setReport({...report, students_present:parseInt(e.target.value||0)})} /></div>
+            <label htmlFor="">Total Student</label>
             <div className="col"><input type="number" className="form-control" placeholder="Total Registered" value={report.total_students} onChange={e=>setReport({...report, total_students:parseInt(e.target.value||0)})} /></div>
           </div>
           <button className="btn btn-primary mt-2">Submit Report</button>
