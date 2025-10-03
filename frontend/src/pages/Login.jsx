@@ -38,7 +38,7 @@ export default function Login({ onLogin }) {
             <input type="password" className="form-control" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} />
           </div>
           <button className="btn btn-primary">Login</button>
-          <p>Don’t have an account? <a href="/register">Register</a></p>
+          <p>Don’t haave an account? <a href="/register">Register</a></p>
         </form>
       </div>
     </div>
